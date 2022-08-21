@@ -1,6 +1,6 @@
 
 import initializeTracing from "./tracing";
-import { PrismaClient } from "@prisma/client";
+import { post, PrismaClient, user } from "@prisma/client";
 import express, { request, Request, response, Response } from "express";
 
 const tracer = initializeTracing("express-server")
@@ -13,11 +13,25 @@ const prisma = new PrismaClient({});
 app.get("/users/random", async (_req: Request, res: Response) => {
     await tracer.startActiveSpan("GET /users/random", async (requestSpan) => {
         try {
-            let users = await prisma.user.findMany({
-                include: {
-                    posts: true
+
+            // define "users" along with its type. 
+            let users: (user & { posts: post[]; })[] | undefined;
+
+            await tracer.startActiveSpan("prisma.user.findmany", async (findManyQuerySpan) => {
+                try {
+                    users = await prisma.user.findMany({
+                        include: {
+                            posts: true
+                        }
+                    });
+                } finally {
+                    findManyQuerySpan.end()
                 }
             });
+
+            if (!users) {
+                throw new Error("Failed to fetch users");
+            }
 
             // select 10 users randomly
             const shuffledUsers = users.sort(() => 0.5 - Math.random());
