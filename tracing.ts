@@ -6,6 +6,8 @@ import { trace, Tracer } from "@opentelemetry/api";
 import { JaegerExporter } from "@opentelemetry/exporter-jaeger";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 import { PrismaInstrumentation } from '@prisma/instrumentation';
+import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express'
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
 
 export default function initializeTracing(serviceName: string): Tracer {
     const provider = new NodeTracerProvider({
@@ -24,6 +26,8 @@ export default function initializeTracing(serviceName: string): Tracer {
 
     registerInstrumentations({
         instrumentations: [
+            new HttpInstrumentation(),
+            new ExpressInstrumentation(),
             new PrismaInstrumentation()
         ],
         tracerProvider: provider,
