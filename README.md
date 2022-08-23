@@ -14,3 +14,4 @@ For reference express server used at the _beginning of the tutorial_ go to the [
 4. Start jaeger: `docker-compose up -d`
 5. Start the server: `npm run dev`.
 6. Test out the example endpoint: [http://localhost:4000/users/random](http://localhost:4000/users/random).
+7. See the generated traces in Jaeger: [http://localhost:16686](http://localhost:16686). 
