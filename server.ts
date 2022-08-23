@@ -1,5 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+
+import initializeTracing from "./tracing";
+const tracer = initializeTracing("express-server")
+
+
+import { post, PrismaClient, user } from "@prisma/client";
 import express, { request, Request, response, Response } from "express";
+
 
 const app = express();
 const port = 4000;
@@ -14,16 +20,16 @@ app.get("/users/random", async (_req: Request, res: Response) => {
             }
         });
 
-        // select 10 users randomly 
+        // select 10 users randomly
         const shuffledUsers = users.sort(() => 0.5 - Math.random());
         const selectedUsers = shuffledUsers.slice(0, 10);
 
         res.status(200).json(selectedUsers);
     } catch (e) {
         res.status(500).json({ error: 500, details: e });
+    } finally {
     }
 });
-
 
 app.listen(port, () => {
     console.log(`Example app listening on port: ${port}`);
