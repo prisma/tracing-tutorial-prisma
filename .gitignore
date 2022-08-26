@@ -4,3 +4,5 @@ node_modules
 prisma/dev.db
 .idea 
 .code 
+
+.DS_Store
