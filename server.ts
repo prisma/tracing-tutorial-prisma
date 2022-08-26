@@ -3,8 +3,8 @@ import initializeTracing from "./tracing";
 const tracer = initializeTracing("express-server")
 
 
-import { post, PrismaClient, user } from "@prisma/client";
-import express, { request, Request, response, Response } from "express";
+import { PrismaClient } from "@prisma/client";
+import express, { Request, Response } from "express";
 
 
 const app = express();
