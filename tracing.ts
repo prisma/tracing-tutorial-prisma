@@ -8,7 +8,7 @@ import { registerInstrumentations } from "@opentelemetry/instrumentation";
 import { PrismaInstrumentation } from '@prisma/instrumentation';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
-import { TraceIdRatioBasedSampler } from '@opentelemetry/core'
+import { TraceIdRatioBasedSampler } from '@opentelemetry/sdk-trace-base'
 
 export default function initializeTracing(serviceName: string): Tracer {
 
