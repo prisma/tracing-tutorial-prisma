@@ -1,6 +1,6 @@
 ## Prisma tracing tutorial
 
-Reference code for ["Get Started With Prisma Tracing and OpenTelemetry"](http://prisma.io/blog/tracing-tutorial-prisma-pmkddgq1lm2).
+Reference code for ["Get Started With Tracing Using OpenTelemetry and Prisma Tracing"](https://prisma.io/blog/tracing-tutorial-prisma-pmkddgq1lm2).
 
 ### Installation
 
